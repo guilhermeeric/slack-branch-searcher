@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: npm run dev
+    volumes:
+      - .:/app/
+    ports:
+      - 7777:7777
+  ngrok:
+    image: shkoliar/ngrok:latest
+    depends_on:
+      - web
+    ports:
+      - 4551:4551
+    environment:
+      - DOMAIN=web
+      - PORT=7777
+      - AUTH_TOKEN=TOKEN
